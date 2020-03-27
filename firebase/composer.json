@@ -1,0 +1,10 @@
+{
+    "name": "internproject/firebase",
+    "description": "petshop",
+    "type": "project",
+    "license": "gnu",
+    "minimum-stability": "dev",
+    "require": {
+        "kreait/firebase-php": "4.35"
+    }
+}

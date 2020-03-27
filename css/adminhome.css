@@ -1,0 +1,76 @@
+body{
+  margin-top: 0px;
+  margin: 0px;
+  margin-right:0px;
+
+}
+.topnav {
+  overflow: hidden;
+
+  background-color:rgb(21, 139, 213);
+  height: 86px;
+  width: 1519.2px;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  display: block;
+  color: white;
+  height: 100%;
+  padding: 28px 36px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  z-index: 999;
+  line-height: 19.6px;
+  padding-left: 50px;
+
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  
+  color: black;
+}
+
+/* Style the "active" element to highlight the current page */
+.topnav a.active {
+  font-size: 30px;
+}
+
+/* Style the search box inside the navigation bar */
+.topnav input[type=text] {
+   padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 27%;
+  background: #f1f1f1;
+  margin-top: 20px;
+}
+
+.topnav button{
+  float: left;
+  width: 02%;
+  padding: 10px;
+  background: white;
+  color: blue;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+  margin-top: 20px;
+
+}
+.topnav button::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.topnav .btn{
+  width: 10%;
+
+
+}
