@@ -7,13 +7,6 @@
   <script type="text/javascript" nonce="0b0845a34e5744b4896fa2207eb" src="//local.adguard.org?ts=1584458659052&amp;type=content-script&amp;dmn=mail-attachment.googleusercontent.com&amp;css=1&amp;js=1&amp;gcss=1&amp;rel=1&amp;rji=1"></script>
 <script type="text/javascript" nonce="0b0845a34e5744b4896fa2207eb" src="//local.adguard.org?ts=1584458659052&amp;name=AdGuard%20Assistant%20Beta&amp;name=AdGuard%20Popup%20Blocker%20%28Beta%29&amp;name=AdGuard%20Extra%20Beta&amp;type=user-script"></script><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="css/prodetails.css">
-
-  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
-  <script defer src="//code.jquery.com/jquery-1.11.2.js"></script>
-  <script defer src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
-  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
-  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>   
-
   
 
   <!-- BootStrap Script -->
@@ -102,7 +95,7 @@
       include('./firebase/index.php'); 
       if (isset( $_GET['key'])) {
         $key = $_GET['key'];
-        $ref = "product_info/";
+        $ref = "pet_info/";
             $data=$database->getReference($ref.$_GET['key'])->getValue();
             //foreach ($data as $key => $value)
             if(!empty($data)){                             
@@ -136,7 +129,7 @@
             </form>
           </div>
           <div class="col-lg-6">
-            <button class="btn btn-lg btn-primary btn-block" type="submit" class="add_to_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart</button><br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart</button><br>
           </div>
         </div>
       </div>
@@ -157,7 +150,7 @@
     <ul>
   <?php
     
-    $ref = "product_info/".$_GET['key']."/Review";
+    $ref = "pet_info/".$_GET['key']."/Review";
     $rev = $database->getReference($ref)->getValue();
     if(empty($rev)){
     ?>
@@ -190,7 +183,7 @@
         <input type="text" class="form-control" name="summary" required ><br>
         <small>Review*</small><br>
          <input type="hidden" name="key" value="<?php echo $_GET['key'] ?>"> 
-         <input type="hidden" name="tablename" value="product_info/">
+         <input type="hidden" name="tablename" value="pet_info/"> 
         <textarea name="review" rows="8" cols="70"></textarea><br><br>
         <button type="submit" class="btn btn-primary" name="save">Submit</button>
       </div>
@@ -201,83 +194,8 @@
 </body>
 
 <script src="script/index.js"></script>
-<script type="text/javascript" defer src="script/init-firebase.js"></script>
-<script type="text/javascript" defer src="script/signin.js"></script>
-<script>  
- $(document).ready(function(data){  
-      $('.add_to_cart').click(function(){  
-           var product_id = $(this).attr("id");  
-           var product_name = $('#name'+product_id).val();  
-           var product_price = $('#price'+product_id).val();  
-           var product_quantity = $('#quantity'+product_id).val();  
-           var action = "add";  
-           if(product_quantity > 0)  
-           {  
-                $.ajax({  
-                     url:"action.php",  
-                     method:"POST",  
-                     dataType:"json",  
-                     data:{  
-                          product_id:product_id,   
-                          product_name:product_name,   
-                          product_price:product_price,   
-                          product_quantity:product_quantity,   
-                          action:action  
-                     },  
-                     success:function(data)  
-                     {  
-                          $('#order_table').html(data.order_table);  
-                          $('.badge').text(data.cart_item);  
-                          alert("Product has been Added into Cart");  
-                     }  
-                });  
-           }  
-           else  
-           {  
-                alert("Please Enter Number of Quantity")  
-           }  
-      });  
-      $(document).on('click', '.delete', function(){  
-           var product_id = $(this).attr("id");  
-           var action = "remove";  
-           if(confirm("Are you sure you want to remove this product?"))  
-           {  
-                $.ajax({  
-                     url:"action.php",  
-                     method:"POST",  
-                     dataType:"json",  
-                     data:{product_id:product_id, action:action},  
-                     success:function(data){  
-                          $('#order_table').html(data.order_table);  
-                          $('.badge').text(data.cart_item);  
-                     }  
-                });  
-           }  
-           else  
-           {  
-                return false;  
-           }  
-      });  
-      $(document).on('keyup', '.quantity', function(){  
-           var product_id = $(this).data("product_id");  
-           var quantity = $(this).val();  
-           var action = "quantity_change";  
-           if(quantity != '')  
-           {  
-                $.ajax({  
-                     url :"action.php",  
-                     method:"POST",  
-                     dataType:"json",  
-                     data:{product_id:product_id, quantity:quantity, action:action},  
-                     success:function(data){  
-                          $('#order_table').html(data.order_table);  
-                     }  
-                });  
-           }  
-      });  
- });  
- </script>
-
+ <script type="text/javascript" defer src="script/init-firebase.js"></script>
+  <script type="text/javascript" defer src="script/signin.js"></script>
 
 
 </html>

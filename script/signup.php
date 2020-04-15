@@ -17,29 +17,21 @@
 
   <!-- Font Icons -->
   <script src="https://kit.fontawesome.com/faa27f073b.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 </head>
 
 <body>
 
   <!-- Top Navbar -->
   <section class="topnav">
-    <a class="active" href="index.php"><b><i>PetsPlanet</i></b></a>
+    <a class="active" href="#home"><b><i>PetsPlanet</i></b></a>
     <input type="text" placeholder="Search.." name="search">
     <button type="submit"><i class="fa fa-search"></i></button>
     <a href="#about">Track Order</a>
     <a href="#contact">Contact</a>
-    <div id="login_att">
-    <a href="signin.php" >Sign In</a>
-    <a href="signup.php" >Sign up</a>
-  </div>
-     <button type="submit" class="btn"><i class="fa fa-shopping-cart" aria-hidden="true"></i>My Cart</button>
-    <form  action="logout.php" method="post">
-    <button type="submit" class="btn" id="user_att" name="logout" ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
-    </form>  </section>
+    <a href="#contact">Sign In</a>
+    <a href="#contact">Sign up</a>
+    <button type="submit" class="btn"><i class="fa fa-shopping-cart" aria-hidden="true"></i>My Cart</button>
+  </section>
 
   <!-- Dropdown Navbar -->
   <section id="dropdown-navbar">
@@ -95,16 +87,15 @@
     <section id="signup-body">
       <h2>Create New Customer Account</h2>
       <br>
-
       <div class="row">
         <div class="col-lg-5">
           <h3><u>Social Account SignIn</u></h3>
           <br>
-          <button  class="loginBtn loginBtn--facebook" >
+          <button class="loginBtn loginBtn--facebook">
             Login with Facebook
           </button>
           <br><br>
-          <button onclick="googlelogin()" class="loginBtn loginBtn--google" >
+          <button class="loginBtn loginBtn--google">
             Login with Google
           </button>
         </div>
@@ -133,8 +124,6 @@
         </div>
       </div>
     </section>
-         <script  defer src="script/init-firebase.js"></script>
-         <script defer src="script/signin.js"></script>
 
     <script>
       $(document).ready(function(){
@@ -153,7 +142,6 @@
 
       });
     </script>
-
 
 </body>
 

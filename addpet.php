@@ -33,7 +33,7 @@
   <br>
 <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
   <section id="add-product">
-    <h2 class="center"><i class="fas fa-cogs"></i> Add Product</h2>
+    <h2 class="center"><i class="fas fa-cogs"></i> Add Pet</h2>
     <br>
     <section>
       <div class="row">
@@ -51,7 +51,6 @@
           <br>
           <label>Image*: </label>
           <input type="file" name="image" value=""><br><br>
-
           <label>Status*:</label>
           <div class="dropdown">
             <select class="dropdown-toggle btn btn-secondary" name="product-status">
@@ -59,48 +58,18 @@
               <option value="unavailable">Unavailable</option>
             </select>
           </div>
-         <br><br>
-         
-          <label>Category*:</label>
+          <br><br>
+           <label>Category*:</label>
           <div class="dropdown">
-            <select class="dropdown-toggle btn btn-secondary" name="product-category">
+            <select class="dropdown-toggle btn btn-secondary" name="product-cat">
               <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
               <option value="fish">Fish</option>
               <option value="bird">Bird</option>
-              <option value="cat">Cat</option>
             </select>
           </div>
           <br><br>
-
-           <label>Brand*:</label>
-          <div class="dropdown">
-            <select class="dropdown-toggle btn btn-secondary" name="product-brand">
-              <option value="royal canin">Royal Canin</option>
-              <option value="farmina">Farmina</option>
-              <option value="orijen">Orijen</option>
-              <option value="sunseed">Sunseed</option>
-              <option value="taste of the wild">Taste Of The Wild</option>
-              <option value="hills sceince diet">Hills Science Diet</option>
-              <option value="acana">Acana</option>
-            </select>
-          </div>
-          <br><br>
-
-
-                    <label>Food Category*:</label>
-          <div class="dropdown">
-            <select class="dropdown-toggle btn btn-secondary" name="food-cat">
-              <option value="dry">Dry food</option>
-              <option value="gravy">Gravy food</option>
-              <option value="puppy">Puppy food</option>
-              <option value="veg">Veg food</option>
-              <option value="human grade food">Human grade food</option>
-              <option value="biscuits">Biscuits</option>
-              <option value="treats">Treats</option>
-            </select>
-          </div>
-          <br><br>
-
+          
           <div class="row">
             <div class="col-lg-2">
               <button type="clear" class="btn btn-secondary" name="button">Clear</button>
@@ -114,16 +83,14 @@
     </section>
   </section>
 </form>
-<?php 
-include('./firebase/index.php');
-if(isset($_POST['save'])){
+ <?php 
+  include('./firebase/index.php');
+  if(isset($_POST['save'])){
             $name = $_POST['product-name'];
             $prize = $_POST['product-price'];
-            $des = $_POST['product-description'];
+            $des =  $_POST['product-description'];
             $stat = $_POST['product-status'];
-            //$category = $_POST['product-category'];
-            //$brand =  $_POST['product-brand'];
-            //$foodcat = $_POST['food-cat'];
+            $cat = $_POST['product-cat'];
              //image
             $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
             $image_name = addslashes($_FILES['image']['name']);
@@ -131,7 +98,7 @@ if(isset($_POST['save'])){
 //
             move_uploaded_file($_FILES["image"]["tmp_name"], "./images/" . $_FILES["image"]["name"]);
             $location = "./images/" . $_FILES["image"]["name"];
-            if(empty($name) || empty($prize) || empty($des) || empty($stat) || empty($category)){
+            if(empty($name) || empty($prize) || empty($des) || empty($stat) || empty($cat)){
                     echo '<script>alert("Fields must be empty.");
                                  window.location.href="addcnp.php";
                     </script>';
@@ -143,11 +110,9 @@ if(isset($_POST['save'])){
                         'description' => $des,
                         'status' => $stat,
                         'location' => $location,
-                        'category' => $category,
-                        'food-cat' => $foodcat,
-                        'brand' => $brand
+                        'category' => $cat
                     ];
-                    $ref = "product_info/";
+                    $ref = "pet_info/";
                     $pushdata = $database->getReference($ref)->push($data);
                     
                     if($pushdata){

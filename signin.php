@@ -16,6 +16,14 @@
 
   <!-- Font Icons -->
   <script src="https://kit.fontawesome.com/faa27f073b.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+
+<script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase.js"></script>
+
+<script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+
+<script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
+
 </head>
 
 <body>
@@ -27,9 +35,14 @@
     <button type="submit"><i class="fa fa-search"></i></button>
     <a href="#about">Track Order</a>
     <a href="#contact">Contact</a>
-    <a href="signin.php">Sign In</a>
-    <a href="signup.php">Sign up</a>
+    <div id="login_att">
+    <a href="signin.php" >Sign In</a>
+    <a href="signup.php" >Sign up</a>
+  </div>
     <button type="submit" class="btn"><i class="fa fa-shopping-cart" aria-hidden="true"></i>My Cart</button>
+    <form  action="logout.php" method="post">
+    <button type="submit" class="btn" id="user_att" name="logout" ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
+    </form>
   </section>
 
   <!-- Dropdown Navbar -->
@@ -87,18 +100,19 @@
     <div class="row">
       <div class="col-lg-5">
         
-        <form action="signinauth.php" method="post" enctype="multipart/form-data">
+        <!--<form action="signinauth.php" method="post" enctype="multipart/form-data"></form>-->
+
         <h3><u>Registered Customers</u></h3>
         <br>
         <p>If you have an account, sign in with your email address.</p><br>
         <small>Email*</small>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus><br>
+        <input type="email"  class="form-control" placeholder="Email address" name="email" id="email" required autofocus><br>
         <small>Password*</small>
-        <input type="password" class="form-control" placeholder="Password" name="password" required><br>
+        <input type="password" class="form-control" placeholder="Password" name="password" id="password" required><br>
         
-        <button type="submit" name="login" class="btn btn-lg btn-primary btn-block">Sign In </button>
-       </form>
-      </div>
+         <button onclick="login()" class="btn btn-lg btn-primary btn-block">Login </button>
+       <!-- <button type="submit" name="login" class="btn btn-lg btn-primary btn-block">Sign In </button>-->
+             </div>
 
       <div class="col-lg-2">
 
@@ -108,11 +122,14 @@
         <h3><u>New Customers</u></h3>
         <br>
         <p>Creating an account has many benefits: check out faster, keep more than one address, track orders and more.</p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" >Sign up</button>
+        <a class="btn btn-lg btn-primary btn-block" type="button" href="signup.php" >Sign up</a>
       </div>
     </div>
   </section>
 
+
+<script  defer src="script/init-firebase.js"></script>
+<script defer src="script/signin.js"></script>
 </body>
 
 </html>

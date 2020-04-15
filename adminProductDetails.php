@@ -23,7 +23,7 @@
  <section class="topnav">
    <a class="active" href="index.php"><b><i>PetsPlanet</i></b></a>
    <div class="floating-part-topnav">
-     <a href="#about">Order</a>
+     <a href="addpet.php">Add Pet</a>
      <a href="addProduct.php">Add Product</a>
      <a href="adminProductDetails.php">Update Product</a>
      <a href="#contact"><i class="fas fa-user"></i> Admin Account</a>
