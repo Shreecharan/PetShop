@@ -46,6 +46,12 @@
    <input type="text" placeholder="Search.." name="search" autocomplete="off" id="search">
    <button type="submit"><i class="fa fa-search"></i></button>
     <div class="search-results" id="search-results">
+      <div class="pet_res">
+        
+      </div>
+      <div class="prod_res">
+        
+      </div>
 
    </div>
     <a href="#about">Track Order</a>

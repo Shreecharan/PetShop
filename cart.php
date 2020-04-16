@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -14,8 +18,12 @@
 
     <!-- Font Icons -->
     <script src="https://kit.fontawesome.com/faa27f073b.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
 
-    <script src="script/index.js"></script>
+    
   </head>
   <body>
 
@@ -35,7 +43,7 @@
      <a href="signin.php" >Sign In</a>
      <a href="signup.php" >Sign up</a>
    </div>
-    <button type="submit" class="btn" style="margin-right: 60px;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i>My Cart</button>
+    <button type="submit" class="btn" style="margin-right: 60px;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i>My Cart <span class="badge"></span></button>
     <form  action="logout.php" method="post">
      <button type="submit" class="btn" id="user_att" name="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
      </form>
@@ -94,10 +102,10 @@
 
     <section id="cart-details">
       <div class="row">
-        <div class="col-lg-7 cart-section">
+        <div class="col-lg-7 cart-section" id="order_table">
           <div class="row">
             <div class="col-md-6">
-              <h4>My Cart(1)</h4>
+              <h4>My Cart</h4>
             </div>
             <div class="col-md-6 make-inline">
               <i class="fas fa-map-marked-alt  make-inline"></i>
@@ -116,7 +124,7 @@
             <div class="col-lg-3">
               <div class="row">
                 <div class="col-md-12">
-                  <img src="images/husky1.jpg" class="img-pad" alt="">
+                  <img src="images/dog/husky1.jpg" class="img-pad" alt="">
                 </div>
               </div>
               <div class="row">
@@ -137,7 +145,7 @@
               <br><br>
               <h5>₹263</h5>
               <br>
-              <button type="button" name="remove">REMOVE</button>
+              <button type="button" name="remove" class=".delete">REMOVE</button>
             </div>
             <div class="col-lg-4">
               <small>Delivery by Tomorrow, Wed | Free</small>
@@ -185,5 +193,9 @@
       </div>
     </section>
 
+<script src="script/index.js"></script>
+<script type="text/javascript" defer src="script/init-firebase.js"></script>
+<script type="text/javascript" defer src="script/signin.js"></script>
+<script type="text/javascript" defer src="script/cart.js"></script>
   </body>
 </html>

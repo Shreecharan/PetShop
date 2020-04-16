@@ -8,37 +8,39 @@ function startsWith ($string, $startString)
 } 
 
 
-$res=array();
-$path="pet_info/";
-$search_str="";
-$str="";
-
-$data = $database->getReference($path)->getvalue();
+$petres=array();
+$petpath="pet_info/";
+$pet_str="";
+$res_str="";
+$pet_search = '';
+$data = $database->getReference($petpath)->getvalue();
     if (isset($_POST['query'])) {
 
         $query=$_POST['query'];
-    	$search_str.=$query;
-    	$str= strtolower($search_str);
+    	$pet_str.=$query;
+    	$res_str= strtolower($pet_str);
         foreach ($data as $key => $value) {
-        	if(startsWith(strtolower($value['pname']),$str)) {
+        	if(startsWith(strtolower($value['pname']),$res_str)) {
         	    //array_push($res, array($key=>$value['pname']));
-        	    $res[$key]=	$value['pname'];
+        	    $petres[$key]=	$value['pname'];
             }
         }
        
          
          
-    $len=count($res) ;     
+    $len=count($petres) ;     
     if($len > 0)  {      
-        foreach ($res as $key => $value) {
-        	?>
-            <a href="petDetails.php?key=<?php echo $key;?>" style="color: black;"><?php echo $value; ?></a>
-            <?php
+        foreach ($petres as $key => $value) {
+        	$pet_search .= '
+
+            <a href="petDetails.php?key=<?php echo $key;?>" style="color: black;"><?php echo $value; ?></a>';
+            
              }
              	
              }
     else {
-            echo "No results found";
+            $pet_search = '
+               "No results found"';
              }         
      }         
          ?>

@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -35,8 +39,11 @@
     <!-- Top Navbar -->
     <section class="topnav">
       <a class="active" href="index.php"><b><i>PetsPlanet</i></b></a>
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
+      <input type="text" placeholder="Search.." name="search" autocomplete="off" id="search">
+   <button type="submit"><i class="fa fa-search"></i></button>
+    <div class="search-results" id="search-results">
+
+   </div>
       <a href="#about">Track Order</a>
       <a href="#contact">Contact</a>
     <div id="login_att">
@@ -110,19 +117,25 @@
                     
         ?>      
   <section id="signin-body">
+        <input type="hidden" name="key" value="<?php echo $_GET['key'];?>" id="product-key">
     <div class="row">
       <div class="col-lg-5">
         <img src="<?php echo $data['location'];?>" class="product-img" alt="">
+        <input type="hidden" name="img" value="<?php echo $data['location'];?>" id="product-img">
       </div>
       <div class="col-lg-7">
-        <h2><?php echo $data['pname'];?></h2>
+        <h2 ><?php echo $data['pname'];?></h2>
+        <input type="hidden" name="name" value="<?php echo $data['pname'];?>" id="product-name">
         <br>
         <div class="row">
           <div class="col-lg-6">
-            <h1><?php echo $data['price'];?> <span style='font-family:Arial;'>&#8377;</span></h1>
+            <h1 ><?php echo $data['price'];?> <span style='font-family:Arial;'>&#8377;</span></h1>
+        <input type="hidden" name="price" value="<?php echo $data['price'];?>" id="product-price">
+
           </div>
           <div class="col-lg-6">
             <h3><?php echo $data['status'];?></h3>
+            <input type="hidden" name="status" value="<?php echo $data['status'];?>" id="product-status">
           </div>
         </div>
         <hr>
@@ -131,12 +144,12 @@
             <h5>Qty</h5>
             <form>
               <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-              <input type="number" id="number" value="0" />
+              <input type="number" id="number" class="quantity" value="1" />
               <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
             </form>
           </div>
           <div class="col-lg-6">
-            <button class="btn btn-lg btn-primary btn-block" type="submit" class="add_to_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart</button><br>
+            <button class="btn btn-lg btn-primary btn-block add_to_cart" type="submit" class="add_to_cart" id="<?php echo $_GET["key"]; ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart</button><br>
           </div>
         </div>
       </div>
@@ -203,80 +216,7 @@
 <script src="script/index.js"></script>
 <script type="text/javascript" defer src="script/init-firebase.js"></script>
 <script type="text/javascript" defer src="script/signin.js"></script>
-<script>  
- $(document).ready(function(data){  
-      $('.add_to_cart').click(function(){  
-           var product_id = $(this).attr("id");  
-           var product_name = $('#name'+product_id).val();  
-           var product_price = $('#price'+product_id).val();  
-           var product_quantity = $('#quantity'+product_id).val();  
-           var action = "add";  
-           if(product_quantity > 0)  
-           {  
-                $.ajax({  
-                     url:"action.php",  
-                     method:"POST",  
-                     dataType:"json",  
-                     data:{  
-                          product_id:product_id,   
-                          product_name:product_name,   
-                          product_price:product_price,   
-                          product_quantity:product_quantity,   
-                          action:action  
-                     },  
-                     success:function(data)  
-                     {  
-                          $('#order_table').html(data.order_table);  
-                          $('.badge').text(data.cart_item);  
-                          alert("Product has been Added into Cart");  
-                     }  
-                });  
-           }  
-           else  
-           {  
-                alert("Please Enter Number of Quantity")  
-           }  
-      });  
-      $(document).on('click', '.delete', function(){  
-           var product_id = $(this).attr("id");  
-           var action = "remove";  
-           if(confirm("Are you sure you want to remove this product?"))  
-           {  
-                $.ajax({  
-                     url:"action.php",  
-                     method:"POST",  
-                     dataType:"json",  
-                     data:{product_id:product_id, action:action},  
-                     success:function(data){  
-                          $('#order_table').html(data.order_table);  
-                          $('.badge').text(data.cart_item);  
-                     }  
-                });  
-           }  
-           else  
-           {  
-                return false;  
-           }  
-      });  
-      $(document).on('keyup', '.quantity', function(){  
-           var product_id = $(this).data("product_id");  
-           var quantity = $(this).val();  
-           var action = "quantity_change";  
-           if(quantity != '')  
-           {  
-                $.ajax({  
-                     url :"action.php",  
-                     method:"POST",  
-                     dataType:"json",  
-                     data:{product_id:product_id, quantity:quantity, action:action},  
-                     success:function(data){  
-                          $('#order_table').html(data.order_table);  
-                     }  
-                });  
-           }  
-      });  
- });  
- </script>
+<script type="text/javascript" defer src="script/cart.js"></script>
 
 
 

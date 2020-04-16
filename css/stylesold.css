@@ -22,8 +22,8 @@
   text-decoration: none;
   font-size: 17px;
   font-family: Arial, Helvetica, sans-serif;
-
-
+  
+  
   line-height: 19.6px;
   padding-left: 25px;
 
@@ -65,11 +65,6 @@
 /* Search bar */
 .search-results {
   display: none;
-}
-
-.move-right {
-  position: relative;
-  left: 100px;
 }
 
 
@@ -290,28 +285,4 @@ object-fit: cover;
 
 .out-style {
   outline-style: auto;
-}
-.pet_res{
-  float: left;
-  width: 50%;
-  color: #1c1c1c;
-  line-height: 1.4;
-}
-.prod_res{
-  float: left;
-  width: 50%;
-  color: #1c1c1c;
-  line-height: 1.4;
-}
-.prod_res a{
-  color: black;
-}
-.pet_res a{
-  color: black;
-}
-.prod_res li{
-  list-style: none;
-}
-.pet_res li{
-  list-style: none;
 }
