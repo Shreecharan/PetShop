@@ -130,6 +130,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     });
 });
 
+
 $(document).ready(function() {
   $('#search').click(function () {
     $('#search-results').css({'display': 'flex', "background-color":"white", "width": "1016px", 'height': 'auto', 'position': 'absolute', 'left': '215px', 'top': '65px', 'z-index': '1' ,'margin-top':'10px;'});

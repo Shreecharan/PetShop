@@ -119,37 +119,11 @@ session_start();
               </select>
             </div>
           </div>
+          <hr>
           <br>
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="row">
-                <div class="col-md-12">
-                  <img src="images/dog/husky1.jpg" class="img-pad" alt="">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <form>
-                    <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-                    <input type="number" id="number" value="0" />
-                    <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-5">
-              <h6>Colgate Active Salt Toothpaste</h6>
-              <small>600 g, Pack of 2</small>
-              <br>
-              <small>Seller: SuperComNet</small>
-              <br><br>
-              <h5>₹263</h5>
-              <br>
-              <button type="button" name="remove" class=".delete">REMOVE</button>
-            </div>
-            <div class="col-lg-4">
-              <small>Delivery by Tomorrow, Wed | Free</small>
-            </div>
+          <div class="row ">
+            <div id="order_table"></div>
+            
           </div>
           <hr>
           <div class="row">
@@ -158,7 +132,7 @@ session_start();
             </div>
           </div>
         </div>
-        <div class="col-lg-1">
+        <div class="col-lg-1" >
 
         </div>
         <div class="col-lg-4 cart-section">

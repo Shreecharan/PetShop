@@ -31,7 +31,7 @@ session_start();
     <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
- 
+    
 </head>
 
 <body>
@@ -50,7 +50,7 @@ session_start();
     <a href="signin.php" >Sign In</a>
     <a href="signup.php" >Sign up</a>
   </div>
-      <button type="submit" class="btn" style="margin-right: 60px;"><i class="fa fa-shopping-cart" aria-hidden="true"> </i> My Cart</button>
+      <button type="submit" class="btn" style="margin-right: 60px;"><i class="fa fa-shopping-cart Cart" aria-hidden="true"> </i> My Cart<span class="badge"><?php if(isset($_SESSION["shopping_cart"])) { echo count($_SESSION["shopping_cart"]); } else { echo '0';}?></span></button>
       <button onclick="logout()" class="btn" id="user_att" > Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
     </section>
 
@@ -94,6 +94,8 @@ session_start();
           </div>
         </div>
         <div class="col-lg-2">
+                      
+          </div>
 
         </div>
         <div class="col-lg-4">
@@ -144,12 +146,12 @@ session_start();
             <h5>Qty</h5>
             <form>
               <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-              <input type="number" id="number" class="quantity" value="1" />
+              <input type="number" id="number" class="quantity" value="0" />
               <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
             </form>
           </div>
           <div class="col-lg-6">
-            <button class="btn btn-lg btn-primary btn-block add_to_cart" type="submit" class="add_to_cart" id="<?php echo $_GET["key"]; ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart</button><br>
+            <button class="btn btn-lg btn-primary btn-block add_to_cart" type="submit"  id="<?php echo $_GET["key"]; ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart</button><br>
           </div>
         </div>
       </div>
@@ -209,14 +211,16 @@ session_start();
       </div>
       </form>
     </div>
- </section>
 
+
+ </section>
+<script type="text/javascript" src="script/cart.js"></script>
 </body>
 
-<script src="script/index.js"></script>
+<script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript" defer src="script/init-firebase.js"></script>
 <script type="text/javascript" defer src="script/signin.js"></script>
-<script type="text/javascript" defer src="script/cart.js"></script>
+
 
 
 

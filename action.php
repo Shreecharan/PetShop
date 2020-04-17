@@ -3,13 +3,15 @@
  include('./firebase/index.php');
  $path = "product_info";
  $data =  $database->getReference($path)->getValue();
- $_SESSION["shopping_cart"]=$data;
- if(isset($_POST["product_id"]))  
+ echo $_POST["product_id"];
+if(isset($_POST["product_id"]))  
  {  
+
       $order_table = '';  
       $message = '';  
       if($_POST["action"] == "add")  
       {  
+
            if(isset($_SESSION["shopping_cart"]))  
            {  
                 $is_available = 0;  
@@ -27,7 +29,8 @@
                           'product_id'               =>     $_POST["product_id"],  
                           'product_name'               =>     $_POST["product_name"],  
                           'product_price'               =>     $_POST["product_price"],  
-                          'product_quantity'          =>     $_POST["product_quantity"]  
+                          'product_quantity'          =>     $_POST["product_quantity"],
+                          'product_image '            =>      $_POST["product_image"]
                      );  
                      $_SESSION["shopping_cart"][] = $item_array;  
                 }  
@@ -38,9 +41,11 @@
                      'product_id'               =>     $_POST["product_id"],  
                      'product_name'               =>     $_POST["product_name"],  
                      'product_price'               =>     $_POST["product_price"],  
-                     'product_quantity'          =>     $_POST["product_quantity"]  
+                     'product_quantity'          =>     $_POST["product_quantity"] ,
+                     'product_image '            =>      $_POST["product_image"] 
                 );  
                 $_SESSION["shopping_cart"][] = $item_array;  
+                print_r($_SESSION["shopping_cart"]);
            }  
       }  
       if($_POST["action"] == "remove")  
@@ -68,38 +73,47 @@
       {  
            $total = 0;  
            foreach($_SESSION["shopping_cart"] as $keys => $values)  
-           {  
-                $order_table .= '  
-                     <tr>  
-                          <td>'.$values["product_name"].'</td>  
-                          <td><input type="text" name="quantity[]" id="quantity'.$values["product_id"].'" value="'.$values["product_quantity"].'" class="form-control quantity" data-product_id="'.$values["product_id"].'" /></td>  
-                          <td align="right">$ '.$values["product_price"].'</td>  
-                          <td align="right">$ '.number_format($values["product_quantity"] * $values["product_price"], 2).'</td>  
-                          <td><button name="delete" class="btn btn-danger btn-xs delete" id="'.$values["product_id"].'">Remove</button></td>  
-                     </tr>  
-                ';  
-                $total = $total + ($values["product_quantity"] * $values["product_price"]);  
+           {           
+           $order_table .=  ' 
+             <div class="col-lg-3">
+              <div class="row">
+            <div class="col-md-12">
+                  <img src="'.$values["product_image"].'" class="img-pad" alt="">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <form>
+                    <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+                    <input type="number" id="number" class="number" value="0" />
+                    <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <h6>'.$values["product_name"].'</h6>
+              <br>
+              <small>Seller: PetShopNet</small>
+              <br><br>
+              <h5>Price: '.$values["product_price"].'</h5>
+              <br>
+              <h5>Total: '.number_format($values["product_quantity"] * $values["product_price"], 2).'</h5>
+              <br>
+              <button type="button" name="remove" class="btn btn-danger delete" id="'.$values["product_id"].'">REMOVE</button>
+            </div>
+            <div class="col-lg-4">
+              <small>Delivery 2-3 Days | Free</small>
+            </div>';
+            $total = $total + ($values["product_quantity"] * $values["product_price"]);
            }  
-           $order_table .= '  
-                <tr>  
-                     <td colspan="3" align="right">Total</td>  
-                     <td align="right">$ '.number_format($total, 2).'</td>  
-                     <td></td>  
-                </tr>  
-                <tr>  
-                     <td colspan="5" align="center">  
-                          <form method="post" action="cart.php">  
-                               <input type="submit" name="place_order" class="btn btn-warning" value="Place Order" />  
-                          </form>  
-                     </td>  
-                </tr>  
-           ';  
+          
       }  
-      $order_table .= '</table>';  
+     
       $output = array(  
            'order_table'     =>     $order_table,  
            'cart_item'          =>     count($_SESSION["shopping_cart"])  
       );  
       echo json_encode($output);  
- }  
+ } */ 
  ?>
