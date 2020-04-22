@@ -1,9 +1,11 @@
+
 <?php  
+   ob_start();
  session_start();  
+
  include('./firebase/index.php');
  $path = "product_info";
  $data =  $database->getReference($path)->getValue();
- echo $_POST["product_id"];
 if(isset($_POST["product_id"]))  
  {  
 
@@ -30,7 +32,7 @@ if(isset($_POST["product_id"]))
                           'product_name'               =>     $_POST["product_name"],  
                           'product_price'               =>     $_POST["product_price"],  
                           'product_quantity'          =>     $_POST["product_quantity"],
-                          'product_image '            =>      $_POST["product_image"]
+                          'product_image'            =>      $_POST["product_image"]
                      );  
                      $_SESSION["shopping_cart"][] = $item_array;  
                 }  
@@ -60,7 +62,7 @@ if(isset($_POST["product_id"]))
            }  
       }  
       if($_POST["action"] == "quantity_change")  
-      {  
+      {   
            foreach($_SESSION["shopping_cart"] as $keys => $values)  
            {  
                 if($_SESSION["shopping_cart"][$keys]['product_id'] == $_POST["product_id"])  
@@ -84,10 +86,8 @@ if(isset($_POST["product_id"]))
               <div class="row">
                 <div class="col-md-12">
                   <form>
-                    <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-                    <input type="number" id="number" class="number" value="0" />
-                    <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
-                  </form>
+                    <input type="number" id="number" class="number" value="'.$values["product_quantity"].'" />
+                    </form>
                 </div>
               </div>
             </div>
@@ -100,7 +100,7 @@ if(isset($_POST["product_id"]))
               <br>
               <h5>Total: '.number_format($values["product_quantity"] * $values["product_price"], 2).'</h5>
               <br>
-              <button type="button" name="remove" class="btn btn-danger delete" id="'.$values["product_id"].'">REMOVE</button>
+              <button type="button" name="remove" class="btn btn-danger delete product-key" value="'.$values["product_id"].'">REMOVE</button>
             </div>
             <div class="col-lg-4">
               <small>Delivery 2-3 Days | Free</small>
@@ -109,11 +109,11 @@ if(isset($_POST["product_id"]))
            }  
           
       }  
-     
+     ob_end_clean();
       $output = array(  
            'order_table'     =>     $order_table,  
            'cart_item'          =>     count($_SESSION["shopping_cart"])  
       );  
       echo json_encode($output);  
- } */ 
+ }
  ?>

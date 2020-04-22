@@ -1,5 +1,8 @@
 <?php
-session_start();
+  session_start();
+ if(isset($_SESSION["shopping_cart"])){
+  //echo "<script> alert('success');</script>";
+ }
 
 ?>
 <!DOCTYPE html>
@@ -10,6 +13,11 @@ session_start();
     <!-- CSS Fonts -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/cart.css">
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+  <script defer src="//code.jquery.com/jquery-1.11.2.js"></script>
+  <script defer src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>   
 
     <!-- BootStrap Script -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -23,7 +31,7 @@ session_start();
     <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
 
-    
+    <script type="text/javascript" defer src="script/cart.js"></script>
   </head>
   <body>
 
@@ -102,7 +110,7 @@ session_start();
 
     <section id="cart-details">
       <div class="row">
-        <div class="col-lg-7 cart-section" id="order_table">
+        <div class="col-lg-7 cart-section" >
           <div class="row">
             <div class="col-md-6">
               <h4>My Cart</h4>
@@ -121,9 +129,46 @@ session_start();
           </div>
           <hr>
           <br>
-          <div class="row ">
-            <div id="order_table"></div>
-            
+          <div class="row " >
+            <?php
+                   foreach($_SESSION["shopping_cart"] as $keys => $values)  
+           {           
+           echo ' 
+             <div class="col-lg-3">
+              <div class="row">
+            <div class="col-md-12">
+                  <img src="'.$values["product_image"].'" class="img-pad" alt="">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <form>
+                    <input type="number" id="number'.$values["product_id"].'" class="number" value="'.$values["product_quantity"].'" data-product_id="'.$values["product_id"].'" />
+                     
+                    </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <h6 >'.$values["product_name"].'</h6>
+              <input type="hidden" class="name" value="'.$values["product_name"].'">
+              <br>
+              <small>Seller: PetShopNet</small>
+              <br><br>
+              <h5>Price: '.$values["product_price"].'</h5>
+              <br>
+              <h5>Total: '.number_format($values["product_quantity"] * $values["product_price"], 2).'</h5>
+              <br>
+              <input type="hidden" class="product-key" value="'.$values["product_id"].'">
+              <button type="button" name="remove" class="btn btn-danger delete " value="'.$values["product_id"].'">REMOVE</button>
+            </div>
+            <div class="col-lg-4">
+              <small>Delivery 2-3 Days | Free</small>
+            </div>';
+            //$total = $total + ($values["product_quantity"] * $values["product_price"]);
+           } 
+            ?>
+
           </div>
           <hr>
           <div class="row">
@@ -139,12 +184,19 @@ session_start();
           <h3>PRICE DETAILS</h3>
           <hr>
           <div class="row">
-            <div class="col-md-6">
-              <h6>Price (1 item)</h6>
+            <?php
+            $total=0;
+            foreach($_SESSION["shopping_cart"] as $keys => $values)  
+           {           
+            echo '<div class="col-md-6">
+              <h6>'.$values["product_name"].'*'.$values["product_quantity"].'</h6>
             </div>
             <div class="col-md-6">
-              <h6 class="fleft">₹263</h6>
-            </div>
+              <h6 class="fleft">'.number_format($values["product_quantity"] * $values["product_price"], 2).'</h6>
+            </div>';
+            $total = $total + ($values["product_quantity"] * $values["product_price"]);
+           } 
+           ?>
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -160,7 +212,7 @@ session_start();
               <h5>Total Amount</h5>
             </div>
             <div class="col-md-6">
-              <h5 class="fleft">₹263</h5>
+              <h5 class="fleft"><?php echo $total; ?></h5>
             </div>
           </div>
         </div>
@@ -170,6 +222,6 @@ session_start();
 <script src="script/index.js"></script>
 <script type="text/javascript" defer src="script/init-firebase.js"></script>
 <script type="text/javascript" defer src="script/signin.js"></script>
-<script type="text/javascript" defer src="script/cart.js"></script>
+
   </body>
 </html>

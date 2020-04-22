@@ -3,10 +3,20 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
-  <script type="text/javascript" nonce="0b0845a34e5744b4896fa2207eb" src="//local.adguard.org?ts=1584458659052&amp;type=content-script&amp;dmn=mail-attachment.googleusercontent.com&amp;css=1&amp;js=1&amp;gcss=1&amp;rel=1&amp;rji=1"></script>
-<script type="text/javascript" nonce="0b0845a34e5744b4896fa2207eb" src="//local.adguard.org?ts=1584458659052&amp;name=AdGuard%20Assistant%20Beta&amp;name=AdGuard%20Popup%20Blocker%20%28Beta%29&amp;name=AdGuard%20Extra%20Beta&amp;type=user-script"></script><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Pet Shop</title>
+  <!-- CSS Fonts -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
   <link rel="stylesheet" href="css/adminProductDetails.css">
+
+  <!--jquery script-->
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+  <script defer src="//code.jquery.com/jquery-1.11.2.js"></script>
+  <script defer src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+
+
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>    
 
   <!-- BootStrap Script -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -15,6 +25,12 @@
 
   <!-- Font Icons -->
   <script src="https://kit.fontawesome.com/faa27f073b.js"></script>
+
+  <!--firebase iniit-->
+   <script defer src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 
 </head>
 
@@ -61,7 +77,7 @@
           <br><br>
            <label>Category*:</label>
           <div class="dropdown">
-            <select class="dropdown-toggle btn btn-secondary" name="product-cat">
+            <select class="dropdown-toggle btn btn-secondary category" name="product-cat">
               <option value="dog">Dog</option>
               <option value="cat">Cat</option>
               <option value="fish">Fish</option>
@@ -69,7 +85,13 @@
             </select>
           </div>
           <br><br>
+          <label>Breed*:</label>
+          <div class="dropdown">
+            <select class="dropdown-toggle btn btn-secondary breed" name="product-breed">
           
+           </select>
+          </div>
+          <br><br>
           <div class="row">
             <div class="col-lg-2">
               <button type="clear" class="btn btn-secondary" name="button">Clear</button>
@@ -91,6 +113,7 @@
             $des =  $_POST['product-description'];
             $stat = $_POST['product-status'];
             $cat = $_POST['product-cat'];
+            $breed= $_POST['product-breed'];
              //image
             $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
             $image_name = addslashes($_FILES['image']['name']);
@@ -98,9 +121,9 @@
 //
             move_uploaded_file($_FILES["image"]["tmp_name"], "./images/" . $_FILES["image"]["name"]);
             $location = "./images/" . $_FILES["image"]["name"];
-            if(empty($name) || empty($prize) || empty($des) || empty($stat) || empty($cat)){
+            if(empty($name) || empty($prize) || empty($des) || empty($stat) || empty($cat) || empty($breed)){
                     echo '<script>alert("Fields must be empty.");
-                                 window.location.href="addcnp.php";
+                                 window.location.href="addpet.php";
                     </script>';
                 
                 }else {
@@ -110,21 +133,45 @@
                         'description' => $des,
                         'status' => $stat,
                         'location' => $location,
-                        'category' => $cat
+                        'category' => $cat,
+                        'breed'  => $breed
                     ];
                     $ref = "pet_info/";
                     $pushdata = $database->getReference($ref)->push($data);
                     
                     if($pushdata){
                         echo '<script>alert("Saved Successfully!");
-                                    window.location.href="addproduct.php";</script>';}else {
+                                    window.location.href="addpet.php";</script>';}else {
                                         echo '<script>alert("Sory unable to process your request!");
-                                    window.location.href="addproduct.php";</script>';
+                                    window.location.href="addpet.php";</script>';
                                         }
                     
                     }
         }
 ?>
+<script type="text/javascript">
+$(document).ready(function(){
+      fetch_breed();
+        function fetch_breed()
+        {
+        var category = $('.category').val();
+
+        $.ajax({
+            url:"fetch_breed.php",
+            method:"POST",
+            data:{ category:category },
+            success:function(data){
+                $('.breed').html(data);
+                console.log(data);
+            }
+       });
+   }
+   $('.category').click(function(){
+        fetch_breed();
+    });
+});
+</script>
+  <script type="text/javascript" defer src="script/init-firebase.js"></script>
 
 </body>
 

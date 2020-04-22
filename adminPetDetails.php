@@ -26,13 +26,13 @@
      <a href="addpet.php">Add Pet</a>
      <a href="addProduct.php">Add Product</a>
      <a href="adminProductDetails.php">Update Product</a>
-     <a href="adminPetDetails.php">Update Pet</a>
+      <a href="adminPetDetails.php">Update Pet</a>
      <a href="#contact"><i class="fas fa-user"></i> Admin Account</a>
      <button type="submit" class="btn "><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
    </div>
  </section>
   <br>
-  <h2 class="center">Product List</h2>
+  <h2 class="center">Pet List</h2>
   <br>
   <section id="product-list">
     <div class="row product-table-head">
@@ -55,10 +55,10 @@
         <h5>Action</h5>
       </div>
     </div>
+    <br>
 
-    <br> 
     <?php include('./firebase/index.php');
-              $ref = "product_info";
+              $ref = "pet_info";
                       $id=0;
                         $data=$database->getReference($ref)->getValue();
                         foreach ($data as $key => $value) {
@@ -143,7 +143,7 @@
         </div></div>
           </div>
         <div class="modal-footer">
-         <input type="hidden" name="ref" value="product_info/<?php echo $key ?>"> 
+         <input type="hidden" name="ref" value="pet_info/<?php echo $key ?>"> 
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-info" name="save">Save changes</button>
       </div> 

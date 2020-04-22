@@ -315,3 +315,8 @@ object-fit: cover;
 .pet_res li{
   list-style: none;
 }
+.category .active{
+   position: relative;
+   z-index: 1;
+   overflow: hidden;
+ }

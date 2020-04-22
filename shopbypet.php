@@ -56,22 +56,29 @@
   <!-- Top Navbar -->
   <section class="topnav">
 
-    <a class="active" href="index.php"><b><i>PetsPlanet</i></b></a>
-    <input type="text" placeholder="Search.." name="search" autocomplete="off" class="search">
-    <button type="submit"><i class="fa fa-search"></i></button>
-   
-         <div class="search-results" id="search-results"></div>
+    <a class="act" href="index.php"><b><i>PetsPlanet</i></b></a>
+    <input type="text" placeholder="Search.." name="search" autocomplete="off" id="search">
+   <button type="submit"><i class="fa fa-search"></i></button>
+    <div class="search-results" id="search-results">
+      <div class="pet_res">
+        
+      </div>
+      <div class="prod_res">
+        
+      </div>
 
+   </div>
     <a href="#about">Track Order</a>
     <a href="#contact">Contact</a>
     <div id="login_att">
-      <a href="signin.php">Sign In</a>
-      <a href="signup.php">Sign up</a>
-    </div>
-    <button type="submit" class="btn" style="margin-right: 60px;"><i class="fa fa-shopping-cart" aria-hidden="true"></i> My Cart</button>
-    <form action="logout.php" method="post">
-      <button type="submit" class="btn" id="user_att" name="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
-    </form>
+    <a href="signin.php" >Sign In</a>
+    <a href="signup.php" >Sign up</a>
+  </div>
+   
+   <button type="submit" class="btn Cart" style="margin-right: 60px;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i>My Cart</button>
+  <!--<form  action="logout.php" method="post"> </form>-->
+    <button onclick="logout()" class="btn" id="user_att" >Logout<i class="fa fa-sign-out" aria-hidden="true"></i></button>
+
   </section>
 
   <!-- Dropdown Navbar -->
@@ -79,19 +86,19 @@
     <div class="row">
       <div class="col-lg-2">
         <div class="dropdown">
-          <button class="dropbtn">shop by breed <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></button>
+          <button class="dropbtn">shop by product <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></button>
           <div class="dropdown-content">
-            <a href="#">beagle</a>
-            <a href="#">pug</a>
-            <a href="#">boxer</a>
-            <a href="#">shih tzu</a>
-            <a href="#">great dane</a>
+            <a href="dogproducts.php">dog products</a>
+            <a href="catproducts.php">cat products</a>
+            <a href="fishproducts.php">fish products</a>
+            <a href="birdproducts.php">bird products</a>
+            <a href="smallproducts.php">small pet products</a>
           </div>
         </div>
       </div>
-      <div class="col-lg-2">
+      <!--<div class="col-lg-2">
         <div class="dropdown">
-          <button class="dropbtn">shop by brand <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></button>
+          <button class="dropbtn">shop by brand</button>
           <div class="dropdown-content">
             <a href="#">royal canin</a>
             <a href="#">farmina</a>
@@ -100,20 +107,23 @@
             <a href="#">taste of the wild</a>
           </div>
         </div>
-      </div>
+      </div>-->
       <div class="col-lg-2">
         <div class="dropdown">
           <button class="dropbtn">shop by pet <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></button>
           <div class="dropdown-content">
-            <a href="#">dogs</a>
-            <a href="#">cats</a>
-            <a href="#">fish</a>
-            <a href="#">birds</a>
-            <a href="#">small pet</a>
+            <a href="shopbypet.php?key=dog">dogs</a>
+            <a href="shopbypet.php?key=cat">cats</a>
+            <a href="shopbypet.php?key=fish">fish</a>
+            <a href="shopbypet.php?key=bird">birds</a>
+            <a href="shopbypet.php?key=smallpet">small pet</a>
           </div>
         </div>
       </div>
       <div class="col-lg-2">
+
+      </div>
+            <div class="col-lg-2">
 
       </div>
       <div class="col-lg-4">
@@ -149,19 +159,19 @@
         <div id="breed" class="collapse">
         <br>
             <div class="filter_slidebar" id="slidebar"> 
-            <?php  
-              include('./firebase/index.php');
-              $path="pet/dog/breed";
-               $breeddata = $database->getReference($path)->getValue();
-               foreach ($breeddata as $key => $value) {
+            <!--<?php  
+              //include('./firebase/index.php');
+              //$path="pet/dog/breed";
+              // $breeddata = $database->getReference($path)->getValue();
+              // foreach ($breeddata as $key => $value) {
                  
                
             ?>
-            <div class="radio">
-            <label id="rad"><input type="checkbox" class="common_selector breed" name="optradio" value="<?php echo $value['name'];?>"><?php echo $value['name'];?></label>
-          </div>
+            //<div class="radio">
+            <label id="rad"><input type="checkbox" class="common_selector breed" name="optradio" value="<?php// echo $value['name'];?>"><?php// echo $value['name'];?></label>
+          </div>-->
         <?php
-        } 
+        //} 
             ?>  
 
             </div>
@@ -178,6 +188,7 @@
       <div class="col-md-9">
              <br />
                 <div class="row filter_data">
+
 
                 </div>
             </div>
@@ -223,16 +234,41 @@
         var maximum_price = $('#hidden_maximum_price').val();
         var breed = get_filter('breed');
         var pet = get_filter('petselect');
+       
         $.ajax({
             async: true,
             url:"fetch_data.php",
             method:"POST",
+            dataType:"json" ,   
             data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, breed:breed, pet:pet },
             success:function(data){
-                $('.filter_data').html(data);
                  
+                $('.filter_data').html(data.petres);
+                $('.filter_slidebar').html(data.slidebar); 
+                $('.onbreedclick').click(function(){
+                    
+                      var action = 'fetch_data';
+                      var minimum_price = $('#hidden_minimum_price').val();
+                      var maximum_price = $('#hidden_maximum_price').val();
+                      var breed = get_filter('breed');
+                      var pet = get_filter('petselect');
+                       
+                      $.ajax({
+                          async: true,
+                          url:"fetch_data.php",
+                           method:"POST",
+                           dataType:"json" ,   
+                          data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, breed:breed, pet:pet },
+                        success:function(data){
+                          $('.filter_data').html(data.petres);
+                         
+                 }
 
-            }
+                  });
+   
+                 });
+                 }
+
        });
    }
 
@@ -249,6 +285,7 @@
     $('.common_selector').click(function(){
        
         filter_data();
+        
     });
    
      
@@ -272,6 +309,7 @@
 
   <script type="text/javascript" defer src="script/init-firebase.js"></script>
   <script type="text/javascript" defer src="script/signin.js"></script>
+  <script type="text/javascript" defer src="script/search.js"></script>
 
 
 

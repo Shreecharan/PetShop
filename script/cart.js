@@ -6,7 +6,9 @@ $(document).ready(function(){
            var product_price = $('#product-price').val();  
            var product_quantity = $('#number').val();  
            var action = "add";  
+           var num= $('.var').val();
            var product_image = $('#product-img').val();
+            alert(num);
            if(product_quantity > 0)  
            {  
               $.ajax({  
@@ -24,11 +26,12 @@ $(document).ready(function(){
                      },  
                      success:function(data)  
                      {  
-                          $('#order_table').html(data//.order_table
-                            );  
+                         // $('#order_table').html(data.order_table);  
                          // $('.badge').text(data.cart_item);  
-                          alert("Product has been Added into Cart");  
-                     }  
+                          //alert("Product has been Added into Cart");  
+                          //console.log(data.order_table);
+                         alert("Product has been Added into Cart"); 
+                         }  
                 });  
            }  
            else  
@@ -37,8 +40,10 @@ $(document).ready(function(){
            }  
       });  
       $(document).on('click', '.delete', function(){  
-           var product_id = $('#product-key').val();   
-           var action = "remove";  
+           var product_id = $(this).val();
+           //var product_name = $(this).val();   
+           var action = "remove";
+           
            if(confirm("Are you sure you want to remove this product?"))  
            {  
                 $.ajax({  
@@ -49,8 +54,11 @@ $(document).ready(function(){
                      success:function(data){  
                           $('#order_table').html(data.order_table);  
                           $('.badge').text(data.cart_item);  
+                          console.log(data);
+                          window.location.reload();
                      }  
                 });  
+
            }  
            else  
            {  
@@ -58,9 +66,10 @@ $(document).ready(function(){
            }  
       });  
       $(document).on('keyup', '.number', function(){  
-           var product_id = $('#product-key').val();  
+           var product_id = $(this).data("product_id");  
            var quantity = $(this).val();  
-           var action = "quantity_change";  
+           var action = "quantity_change";
+            
            if(quantity != '')  
            {  
                 $.ajax({  
@@ -70,6 +79,7 @@ $(document).ready(function(){
                      data:{product_id:product_id, quantity:quantity, action:action},  
                      success:function(data){  
                           $('#order_table').html(data.order_table);  
+                          window.location.reload();
                      }  
                 });  
            }  

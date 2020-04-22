@@ -64,9 +64,7 @@
    <button type="submit" class="btn Cart" style="margin-right: 60px;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i>My Cart</button>
   <!--<form  action="logout.php" method="post"> </form>-->
     <button onclick="logout()" class="btn" id="user_att" >Logout<i class="fa fa-sign-out" aria-hidden="true"></i></button>
-
-    
-   
+     
   </section>
 
   <!-- Dropdown Navbar -->
@@ -74,18 +72,18 @@
     <div class="row">
       <div class="col-lg-2">
         <div class="dropdown">
-          <button class="dropbtn">shop by breed <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></button>
+          <button class="dropbtn">shop by product <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></button>
           <div class="dropdown-content">
-            <a href="#">beagle</a>
-            <a href="#">pug</a>
-            <a href="#">boxer</a>
-            <a href="#">shih tzu</a>
-            <a href="#">great dane</a>
+            <a href="dogproducts.php">dog products</a>
+            <a href="catproducts.php">cat products</a>
+            <a href="fishproducts.php">fish products</a>
+            <a href="birdproducts.php">bird products</a>
+            <a href="smallproducts.php">small pet products</a>
           </div>
         </div>
       </div>
-      <div class="col-lg-2">
-        <div class="dropdown">
+       <!-- <div class="col-lg-2">
+      <div class="dropdown">
           <button class="dropbtn">shop by brand <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></button>
           <div class="dropdown-content">
             <a href="#">royal canin</a>
@@ -95,20 +93,23 @@
             <a href="#">taste of the wild</a>
           </div>
         </div>
-      </div>
+      </div>-->
       <div class="col-lg-2">
         <div class="dropdown">
           <button class="dropbtn">shop by pet <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></button>
           <div class="dropdown-content">
-            <a href="dogproducts.php">dogs</a>
-            <a href="catproducts.php">cats</a>
-            <a href="fishproducts.php">fish</a>
-            <a href="birdproducts.php">birds</a>
-            <a href="smallproducts.php">small pet</a>
+            <a href="shopbypet.php?key=dog">dogs</a>
+            <a href="shopbypet.php?key=cat">cats</a>
+            <a href="shopbypet.php?key=fish">fish</a>
+            <a href="shopbypet.php?key=bird">birds</a>
+            <a href="shopbypet.php?key=smallpet">small pet</a>
           </div>
         </div>
       </div>
       <div class="col-lg-2">
+
+      </div>
+            <div class="col-lg-2">
 
       </div>
       <div class="col-lg-4">
